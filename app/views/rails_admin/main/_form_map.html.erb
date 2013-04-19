@@ -21,19 +21,19 @@ function init_map_field(){
       map: map,
       icon: image
     });
+    init_marker(<%= field.latitude_dom_name %>,<%= field.longitude_dom_name %>, event.latLng.lat(), event.latLng.lng());
   });
 }
 
-function init_marker(lat,lon){
-  if(lat != null && lon != null)
-    alert(lat+" --------------"+lon);
-  else
-    alert("null baina ");
+function init_marker(lat_name, lon_name, lat, lon){
+  if(lat_name != null && lon_name != null){
+    document.getElementByName(lat_name).value(lat);
+    document.getElementByName(lon_name).value(lon);
+  }
 }
 
 google.maps.event.addDomListener(window, 'load', init_map_field);
 
-init_marker(<%= field.latitude_dom_name %>,<%= field.longitude_dom_name %>);
 </script>
 
 <div class="map-container" id="map-canvas" style="width:800px; height:400px;">

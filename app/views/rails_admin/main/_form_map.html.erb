@@ -25,12 +25,15 @@ function init_map_field(){
 }
 
 function init_marker(lat,lon){
-  alert(lat+" --------------"+lon);
+  if(lat != null && lon != null)
+    alert(lat+" --------------"+lon);
+  else
+    alert("null baina ");
 }
 
 google.maps.event.addDomListener(window, 'load', init_map_field);
 
-init_marker("sssss","sdfasd");
+init_marker(<%= field.latitude_dom_name %>,<%= field.longitude_dom_name %>);
 </script>
 
 <div class="map-container" id="map-canvas" style="width:800px; height:400px;">

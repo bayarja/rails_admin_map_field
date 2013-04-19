@@ -4,7 +4,7 @@
 function init_map_field(){
   var isMarker = false;
   var myOptions = {
-    zoom: 14,
+    zoom:<%=field.default_zoom_level %>,
     center: new google.maps.LatLng(47.919146, 106.917765),
     mapTypeId: google.maps.MapTypeId.ROADMAP
   };

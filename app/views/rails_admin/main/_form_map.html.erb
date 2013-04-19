@@ -26,9 +26,11 @@ function init_map_field(){
 }
 
 function init_marker(lat_name, lon_name, lat, lon){
+  alert(lat_name+" - "+lon_name+" - "+lat+" - "+lon);
   if(lat_name != null && lon_name != null){
     document.getElementByName(lat_name).value(lat);
     document.getElementByName(lon_name).value(lon);
+    alert(document.getElementByName(lat_name));
   }
 }
 

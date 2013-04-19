@@ -1,23 +1,38 @@
 <%= javascript_include_tag "http://maps.googleapis.com/maps/api/js?key=#{field.google_api_key}&sensor=true" %>
 
 <script type="text/javascript">
-  function init_map_field(){
-      var myOptions = {
-        zoom: 14,
-        center: new google.maps.LatLng(47.919146, 106.917765),
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-      };
+function init_map_field(){
+  var isMarker = false;
+  var myOptions = {
+    zoom: #{field.default_zoom_level},
+    center: new google.maps.LatLng(47.919146, 106.917765),
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  };
 
-      var map = new google.maps.Map(document.getElementById("map-canvas"), myOptions);
+  var map = new google.maps.Map(document.getElementById("map-canvas"), myOptions);
 
-      google.maps.event.addListener(map, 'click', function(event){
-        alert('Lat: ' + event.latLng.lat() + ' and Longitude is: ' + event.latLng.lng());
-      });
-  }
+  google.maps.event.addListener(map, 'click', function(event){
+    alert('Lat: ' + event.latLng.lat() + ' and Longitude is: ' + event.latLng.lng());
 
-  google.maps.event.addDomListener(window, 'load', init_map_field);
+    var image = 'google_marker.jpg';
+    var myLatLng = new google.maps.LatLng(event.latLng.lat(), event.latLng.lng());
+    var beachMarker = new google.maps.Marker({
+      position: myLatLng,
+      map: map,
+      icon: image
+    });
+  });
+}
+
+function init_marker(lat,lon){
+  alert(lat+" --------------"+lon);
+}
 
 
+
+google.maps.event.addDomListener(window, 'load', init_map_field);
+
+init_marker(#{field.latitude_dom_name},#{field.longitude_dom_name});
 </script>
 
 <div class="map-container" id="map-canvas" style="width:800px; height:400px;">

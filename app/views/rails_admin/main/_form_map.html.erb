@@ -21,17 +21,10 @@ function init_map_field(){
       map: map,
       icon: image
     });
-    init_marker(<%= field.latitude_dom_name %>,<%= field.longitude_dom_name %>, event.latLng.lat(), event.latLng.lng());
-  });
-}
 
-function init_marker(lat_name, lon_name, lat, lon){
-  alert(lat_name+" - "+lon_name+" - "+lat+" - "+lon);
-  if(lat_name != null && lon_name != null){
-    document.getElementByName(lat_name).value(lat);
-    document.getElementByName(lon_name).value(lon);
-    alert(document.getElementByName(lat_name));
-  }
+    jQuery("##{field.latitude_dom_name}").val(event.latLng.lat());
+    jQuery("##{field.longitude_dom_name}").val(event.latLng.lng());
+  });
 }
 
 google.maps.event.addDomListener(window, 'load', init_map_field);
@@ -41,3 +34,5 @@ google.maps.event.addDomListener(window, 'load', init_map_field);
 <div class="map-container" id="map-canvas" style="width:800px; height:400px;">
 
 </div>
+<input type="hidden" name="#{field.name}" id="#{field.latitude_dom_name}"/>
+<input type="hidden" name="#{field.longitude_field}" id="#{field.longitude_dom_name}"/>

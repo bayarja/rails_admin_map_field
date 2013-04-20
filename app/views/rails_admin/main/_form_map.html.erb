@@ -22,8 +22,9 @@ function init_map_field(){
       icon: image
     });
 
-    jQuery("##{field.latitude_dom_name}").val(event.latLng.lat());
-    jQuery("##{field.longitude_dom_name}").val(event.latLng.lng());
+    document.getElementById("#{field.latitude_dom_name}").value(event.latLng.lat());
+    document.getElementById("#{field.longitude_dom_name}").value(event.latLng.lng());
+
   });
 }
 

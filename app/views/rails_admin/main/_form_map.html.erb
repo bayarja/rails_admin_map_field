@@ -25,6 +25,9 @@ function init_map_field(){
     document.getElementById("#{field.latitude_dom_name}").value(event.latLng.lat());
     document.getElementById("#{field.longitude_dom_name}").value(event.latLng.lng());
 
+    console.log(document.getElementById("#{field.latitude_dom_name}").value(event.latLng.lat()));
+    console.log(document.getElementById("#{field.longitude_dom_name}").value(event.latLng.lng()));
+
   });
 }
 

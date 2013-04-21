@@ -6,6 +6,9 @@ jQuery(document).ready(function(){
     var isMarker = false;
     var map = null;
     var markers = null;
+    var default_marker_lat = null;
+    var default_marker_lng = null;
+    console.log(<%= field.default_latitude %>+"---"+<%= field.default_longitude %>)
     var myOptions = {
       zoom:<%=field.default_zoom_level %>,
       center: new google.maps.LatLng(<%= field.default_latitude %>, <%= field.default_longitude %>),
@@ -14,16 +17,16 @@ jQuery(document).ready(function(){
 
     map = new google.maps.Map(document.getElementById("map-canvas"), myOptions);
 
+
     default_marker_lat = $("#<%= field.latitude_dom_name %>").val();
     default_marker_lng = $("#<%= field.longitude_dom_name %>").val();
-    if( default_marker_lat != null && default_marker_lng != null){
+    if( default_marker_lat != "" && default_marker_lng != ""){
       map.setCenter(default_marker_pos = new google.maps.LatLng(default_marker_lat, default_marker_lng));
       markers = setMarker(map, default_marker_pos);
     }
 
     google.maps.event.addListener(map, 'click', function(event){
       myLatLng = new google.maps.LatLng(event.latLng.lat(), event.latLng.lng());
-
       removeMarker(markers);
       markers = setMarker(map, myLatLng);
 

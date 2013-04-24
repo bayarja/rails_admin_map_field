@@ -1,64 +1,11 @@
-<%= javascript_include_tag "http://maps.googleapis.com/maps/api/js?key=#{field.google_api_key}&sensor=true" %>
-
-<script type="text/javascript">
-jQuery(document).ready(function(){
-  function init_map_field(){
-    var isMarker = false;
-    var map = null;
-    var markers = null;
-    var default_marker_lat = null;
-    var default_marker_lng = null;
-    console.log(<%= field.default_latitude %>+"---"+<%= field.default_longitude %>)
-    var myOptions = {
-      zoom:<%=field.default_zoom_level %>,
-      center: new google.maps.LatLng(<%= field.default_latitude %>, <%= field.default_longitude %>),
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
-
-    map = new google.maps.Map(document.getElementById("map-canvas"), myOptions);
 
 
-    default_marker_lat = $("#<%= field.latitude_dom_name %>").val();
-    default_marker_lng = $("#<%= field.longitude_dom_name %>").val();
-    if( default_marker_lat != "" && default_marker_lng != ""){
-      map.setCenter(default_marker_pos = new google.maps.LatLng(default_marker_lat, default_marker_lng));
-      markers = setMarker(map, default_marker_pos);
-    }
-
-    google.maps.event.addListener(map, 'click', function(event){
-      myLatLng = new google.maps.LatLng(event.latLng.lat(), event.latLng.lng());
-      removeMarker(markers);
-      markers = setMarker(map, myLatLng);
-
-      $("#<%= field.latitude_dom_name %>").val(event.latLng.lat());
-      $("#<%= field.longitude_dom_name %>").val(event.latLng.lng());
-
-    });
-  }
-
-  function setMarker(map, position){
-
-    var image = 'http://localhost:3000/assets/home_icon.png';
-    beachMarker = new google.maps.Marker({
-      position: position,
-      map: map,
-      icon: image
-    });
-    return beachMarker;
-  }
-
-  function removeMarker(markers){
-    if(markers != null){
-      markers.setMap(null);
-    }
-  }
-
-  google.maps.event.addDomListener(window, 'load', init_map_field);
-});
-</script>
-
-<div class="map-container" id="map-canvas" style="width:800px; height:400px;">
-
-</div>
 <%= form.send :hidden_field, field.name, :id=>field.latitude_dom_name %>
 <%= form.send :hidden_field, field.longitude_field, :id=>field.longitude_dom_name %>
+
+<script type="text/javascript">
+  $(function() {
+    google.maps.event.addDomListener(window, 'load', init_map_field(<%= field.default_zoom_level %>, <%= field.default_latitude %>, <%= field.default_longitude %>, '<%=field.latitude_dom_name %>', '<%=field.longitude_dom_name %>'));
+  });
+</script>
+<div class="map-container" id="my_map" style="width:800px; height:400px;"></div>
